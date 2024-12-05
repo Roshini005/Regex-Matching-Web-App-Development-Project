@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Matcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Regex Matching Tool</h1>
+
+        <form action="/results" method="POST" class="form">
+            <label for="test_string">Test String:</label>
+            <textarea id="test_string" name="test_string" rows="4" cols="50" placeholder="Enter your test string here">{{ test_string or '' }}</textarea>
+            <label for="regex">Regular Expression:</label>
+            <input type="text" id="regex" name="regex" placeholder="Enter regex pattern here" value="{{ regex or '' }}">
+            <button type="submit" class="btn">Find Matches</button>
+        </form>
+
+        {% if matches is not none %}
+        <div class="results">
+            <h2>Matches:</h2>
+            <ul>
+                {% for match in matches %}
+                <li>{{ match }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <hr>
+
+        <h1 class="title">Email Validation</h1>
+        <form action="/validate_email" method="POST" class="form">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Enter email to validate" value="{{ email or '' }}">
+            <button type="submit" class="btn">Validate Email</button>
+        </form>
+
+        {% if is_valid is not none %}
+        <div class="results">
+            <h2>Email is {{ 'Valid' if is_valid else 'Invalid' }}</h2>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
